@@ -11,9 +11,9 @@
 // @name:zh           移除百度搜索的广告如搜索结果里的百度推广
 // @name:zh-CN        移除百度搜索的广告如搜索结果里的百度推广
 
-// @homepageURL       https://cat7373.github.io/remove-baidu-search-ad/
+// @homepageURL       https://github.com/Cat7373/remove-baidu-search-ad/
 // @supportURL        https://github.com/Cat7373/remove-baidu-search-ad/issues/
-// @updateURL         https://cat7373.github.io/remove-baidu-search-ad/remove_baidu_search_ad.js
+// @updateURL         https://raw.githubusercontent.com/Cat7373/remove-baidu-search-ad/master/remove_baidu_search_ad.js
 
 // @compatible        chrome 49.0.2623.75 + TamperMonkey + 脚本_0.1 测试通过
 // @compatible        firefox 未测试
@@ -21,7 +21,7 @@
 // @compatible        safari 未测试
 
 // @author            Cat73
-// @version           0.1
+// @version           0.1.1
 // @license           LGPLv3
 
 // @match             http://*.baidu.com/*
