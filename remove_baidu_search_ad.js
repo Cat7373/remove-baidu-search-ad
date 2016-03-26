@@ -21,7 +21,7 @@
 // @compatible        safari 未测试
 
 // @author            Cat73
-// @version           0.1.2
+// @version           0.1.3
 // @license           LGPLv3
 
 // @match             http://*.baidu.com/*
@@ -41,7 +41,6 @@ function clearLoop() {
                 if(current.className.indexOf("result") == -1) {
                     current.innerHTML = "";
                     current.style.display = "none";
-                    break;
                 }
             }
         }
