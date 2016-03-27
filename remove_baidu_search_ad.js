@@ -15,13 +15,13 @@
 // @supportURL        https://github.com/Cat7373/remove-baidu-search-ad/issues/
 // @updateURL         https://raw.githubusercontent.com/Cat7373/remove-baidu-search-ad/master/remove_baidu_search_ad.js
 
-// @compatible        chrome 49.0.2623.75 + TamperMonkey + 脚本 0.1.4 测试通过
+// @compatible        chrome 49.0.2623.75 + TamperMonkey + 脚本 0.1.5 测试通过
 // @compatible        firefox 未测试
 // @compatible        opera 未测试
 // @compatible        safari 未测试
 
 // @author            Cat73
-// @version           0.1.4
+// @version           0.1.5
 // @license           LGPLv3
 
 // @match             http://www.baidu.com/s*
@@ -50,7 +50,7 @@ function clearLoop () {
         for (var id in nodes) {
             var current = nodes[id];
             if (current.nodeName == "DIV") {
-                if (current.className.indexOf("result") == -1) {
+                if (current.className.indexOf("result") == -1 && current.className.indexOf("hit_top_new") == -1) {
                     remove(current);
                 }
             }
