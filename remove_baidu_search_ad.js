@@ -15,32 +15,43 @@
 // @supportURL        https://github.com/Cat7373/remove-baidu-search-ad/issues/
 // @updateURL         https://raw.githubusercontent.com/Cat7373/remove-baidu-search-ad/master/remove_baidu_search_ad.js
 
-// @compatible        chrome 49.0.2623.75 + TamperMonkey + 脚本_0.1.2 测试通过
+// @compatible        chrome 49.0.2623.75 + TamperMonkey + 脚本 0.1.4 测试通过
 // @compatible        firefox 未测试
 // @compatible        opera 未测试
 // @compatible        safari 未测试
 
 // @author            Cat73
-// @version           0.1.3
+// @version           0.1.4
 // @license           LGPLv3
 
-// @match             http://*.baidu.com/*
-// @match             https://*.baidu.com/*
+// @match             http://www.baidu.com/s*
+// @match             https://www.baidu.com/s*
 // @grant             none
 // @run-at            document-end
 // ==/UserScript==
 'use strict';
 
-function clearLoop() {
+function remove (div) {
+    div.innerHTML = "";
+    div.style.display = "none";
+}
+
+function clearLoop () {
+    // 移除网页右边的推广
+    var ec_im_container_div = document.getElementById("ec_im_container");
+    if (ec_im_container_div) {
+        remove(ec_im_container_div);
+    }
+
+    // 移除搜索结果头部与尾部的推广
     var result_div = document.getElementById("content_left");
-    if(result_div) {
+    if (result_div) {
         var nodes = result_div.childNodes;
-        for(var id in nodes) {
+        for (var id in nodes) {
             var current = nodes[id];
-            if(current.nodeName == "DIV") {
-                if(current.className.indexOf("result") == -1) {
-                    current.innerHTML = "";
-                    current.style.display = "none";
+            if (current.nodeName == "DIV") {
+                if (current.className.indexOf("result") == -1) {
+                    remove(current);
                 }
             }
         }
