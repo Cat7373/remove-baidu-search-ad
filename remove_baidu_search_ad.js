@@ -31,31 +31,26 @@
 // ==/UserScript==
 'use strict';
 
-function remove (div) {
-    div.innerHTML = "";
-    div.style.display = "none";
-}
-
-function clearLoop () {
+function clearBaiduSearchAD () {
     // 移除网页右边的推广
-    var ec_im_container_div = document.getElementById("ec_im_container");
-    if (ec_im_container_div) {
-        remove(ec_im_container_div);
+    var div = document.getElementById("ec_im_container");
+    if (div) {
+        div.parentNode.removeChild(div);
     }
 
     // 移除搜索结果头部与尾部的推广
-    var result_div = document.getElementById("content_left");
-    if (result_div) {
-        var nodes = result_div.childNodes;
-        for (var id in nodes) {
-            var current = nodes[id];
-            if (current.nodeName == "DIV") {
-                if (current.className.indexOf("result") == -1 && current.className.indexOf("hit_top_new") == -1) {
-                    remove(current);
-                }
-            }
+    Array.prototype.forEach.call(document.body.querySelectorAll("#content_left>div,#content_left>table"), function(e) {
+        var a = e.getAttribute("style");
+        if (a && /display:(table|block)\s!important/.test(a)) {
+            e.parentNode.removeChild(e);
         }
-    }
+    });
 }
 
-setInterval(clearLoop, 500);
+clearBaiduSearchAD();
+document.getElementById("su").addEventListener('click', function() {
+    setTimeout(clearBaiduSearchAD, 800);
+}, false);
+document.getElementById("kw").addEventListener('keyup', function() {
+    setTimeout(clearBaiduSearchAD, 800);
+}, false);
