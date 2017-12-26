@@ -55,7 +55,7 @@ document.getElementById("kw").addEventListener('keyup', function() {
     setTimeout(clearBaiduSearchAD, 800);
 }, false);
 
-//2017-12-26 重新修改代码，追加部分写下最后，经过傲游、360、chrome测试OK
+//2017-12-26 重新修改代码，追加代码写在最后，经过傲游、360、chrome测试OK
 // 移除搜索结果头部"广告" #shadow-root ppim  id=1
 document.addEventListener('DOMSubtreeModified',function(){
         //傲游保留
