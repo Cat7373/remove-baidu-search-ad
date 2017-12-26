@@ -5,6 +5,7 @@
 1. 浏览器商店安装油猴子 [Tampermonkey](http://tampermonkey.net/)
 2. [安装本脚本](https://greasyfork.org/zh-CN/scripts/18288-%E7%A7%BB%E9%99%A4%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E7%9A%84%E5%B9%BF%E5%91%8A)
 
-
+##清理前
 ![Image text](https://github.com/JackieZheng/remove-baidu-search-ad/blob/master/images/001.png)
+##清理后
 ![Image text](https://github.com/JackieZheng/remove-baidu-search-ad/blob/master/images/002.png)
