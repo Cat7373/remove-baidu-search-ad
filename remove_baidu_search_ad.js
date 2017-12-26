@@ -13,6 +13,7 @@
 
 // @homepageURL       https://github.com/Cat7373/remove-baidu-search-ad/
 // @supportURL        https://github.com/Cat7373/remove-baidu-search-ad/issues/
+// @updateURL         https://raw.githubusercontent.com/Cat7373/remove-baidu-search-ad/master/remove_baidu_search_ad.js
 
 // @compatible        chrome 49.0.2623.75 + TamperMonkey + 脚本 0.1.5 测试通过
 // @compatible        firefox 未测试
@@ -28,27 +29,40 @@
 // @grant             none
 // @run-at            document-end
 // ==/UserScript==
-(function (window, document, undefined) {
-    'use strict';
-    function clearBaiduSearchAD () {
-        // 移除网页右边的推广
-        var div = document.getElementById("ec_im_container");
-        if (div) {
-            div.parentNode.removeChild(div);
+'use strict';
+
+function clearBaiduSearchAD () {
+    // 移除网页右边的推广
+    var div = document.getElementById("ec_im_container");
+    if (div) {
+        div.parentNode.removeChild(div);
+    }
+
+    // 移除搜索结果头部与尾部的推广
+    Array.prototype.forEach.call(document.body.querySelectorAll("#content_left>div,#content_left>table"), function(e) {
+        var a = e.getAttribute("style");
+        if (a && /display:(table|block)\s!important/.test(a)) {
+            e.parentNode.removeChild(e);
         }
+    });
+}
 
-        // 移除搜索结果头部与尾部的推广
-        Array.prototype.forEach.call(document.body.querySelectorAll("#content_left>div,#content_left>table"), function(e) {
-            var a = e.getAttribute("style");
-            if (a && /display:(table|block)\s!important/.test(a)) {
-                e.parentNode.removeChild(e);
-            }
-        });
+clearBaiduSearchAD();
+document.getElementById("su").addEventListener('click', function() {
+    setTimeout(clearBaiduSearchAD, 800);
+}, false);
+document.getElementById("kw").addEventListener('keyup', function() {
+    setTimeout(clearBaiduSearchAD, 800);
+}, false);
 
-        // 移除搜索结果头部"广告" #shadow-root ppim  id=1
+//2017-12-26 重新修改代码，追加部分写下最后，经过傲游、360、chrome测试OK
+// 移除搜索结果头部"广告" #shadow-root ppim  id=1
+document.addEventListener('DOMSubtreeModified',function(){
+        //傲游保留
         Array.prototype.forEach.call(document.body.querySelectorAll(".c-container /deep/ .c-container"), function(e) {
             e.parentNode.removeChild(e);
         });
+        //chrome系列
         Array.prototype.forEach.call(document.body.querySelectorAll(".m"), function(e) {
             if(e.innerText=='广告')
             {
@@ -56,24 +70,4 @@
                 e.parentNode.removeChild(e);
             }
         });
-        //console.clear();
-        //console.log("1");
-    }
-
-    document.addEventListener('DOMSubtreeModified',function(){
-        setTimeout(clearBaiduSearchAD, 500);
-    },false);
-
-
-    setTimeout(function(){
-        clearBaiduSearchAD ();
-    },500);
-    document.getElementById("su").addEventListener('click', function() {
-        setTimeout(clearBaiduSearchAD, 500);
-    }, false);
-    document.getElementById("kw").addEventListener('keyup', function() {
-        setTimeout(clearBaiduSearchAD, 500);
-    }, false);
-
-
-})(window, document);
+},false);
