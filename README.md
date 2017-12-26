@@ -7,6 +7,9 @@
 
 
 
+
+2017-12-26 清理搜索结果头部广告，经过傲游、360、chrome测试OK
+
 # 清理前
 ![Image text](https://github.com/JackieZheng/remove-baidu-search-ad/blob/master/images/001.png)
 # 清理后
