@@ -28,35 +28,52 @@
 // @grant             none
 // @run-at            document-end
 // ==/UserScript==
-'use strict';
+(function (window, document, undefined) {
+    'use strict';
+    function clearBaiduSearchAD () {
+        // 移除网页右边的推广
+        var div = document.getElementById("ec_im_container");
+        if (div) {
+            div.parentNode.removeChild(div);
+        }
 
-function clearBaiduSearchAD () {
-    // 移除网页右边的推广
-    var div = document.getElementById("ec_im_container");
-    if (div) {
-        div.parentNode.removeChild(div);
+        // 移除搜索结果头部与尾部的推广
+        Array.prototype.forEach.call(document.body.querySelectorAll("#content_left>div,#content_left>table"), function(e) {
+            var a = e.getAttribute("style");
+            if (a && /display:(table|block)\s!important/.test(a)) {
+                e.parentNode.removeChild(e);
+            }
+        });
+
+        // 移除搜索结果头部"广告" #shadow-root ppim  id=1
+        Array.prototype.forEach.call(document.body.querySelectorAll(".c-container /deep/ .c-container"), function(e) {
+            e.parentNode.removeChild(e);
+        });
+        Array.prototype.forEach.call(document.body.querySelectorAll(".m"), function(e) {
+            if(e.innerText=='广告')
+            {
+                e=e.parentNode.parentNode;
+                e.parentNode.removeChild(e);
+            }
+        });
+        //console.clear();
+        //console.log("1");
     }
 
-    // 移除搜索结果头部与尾部的推广
-    Array.prototype.forEach.call(document.body.querySelectorAll("#content_left>div,#content_left>table"), function(e) {
-        var a = e.getAttribute("style");
-        if (a && /display:(table|block)\s!important/.test(a)) {
-            e.parentNode.removeChild(e);
-        }
-    });
-  
-   // 移除搜索结果头部"广告" #shadow-root
-    Array.prototype.forEach.call(document.body.querySelectorAll(".c-container /deep/ .c-container"), function(e) {         
-            e.parentNode.removeChild(e);         
-    });
-}
-bds.ready(function(){
-    clearBaiduSearchAD();
+    document.addEventListener('DOMSubtreeModified',function(){
+        setTimeout(clearBaiduSearchAD, 500);
+    },false);
+
+
+    setTimeout(function(){
+        clearBaiduSearchAD ();
+    },500);
     document.getElementById("su").addEventListener('click', function() {
-        setTimeout(clearBaiduSearchAD, 800);
+        setTimeout(clearBaiduSearchAD, 500);
     }, false);
     document.getElementById("kw").addEventListener('keyup', function() {
-        setTimeout(clearBaiduSearchAD, 800);
+        setTimeout(clearBaiduSearchAD, 500);
     }, false);
-});
- 
+
+
+})(window, document);
