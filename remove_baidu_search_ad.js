@@ -20,7 +20,7 @@
 // @compatible        safari 未测试
 
 // @author            Jackie
-// @version           0.2.3
+// @version           0.2.4
 // @license           LGPLv3
 
 // @match             http://www.baidu.com/s*
