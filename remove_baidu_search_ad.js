@@ -20,7 +20,7 @@
 // @compatible        safari 未测试
 
 // @author            Jackie
-// @version           0.2.4
+// @version           0.2.5
 // @license           LGPLv3
 
 // @match             http://www.baidu.com/s*
@@ -51,7 +51,14 @@ function clearBaiduSearchAD () {
         }
     }); 
   
- 
+   // 暴力清除“广告”
+    Array.prototype.forEach.call(document.body.querySelectorAll("#content_left>div>div>span"), function(e) {
+        var st = e.innerText;
+        var ad=e.parentNode.parentNode;
+        if (st=="广告") {
+            ad.parentNode.removeChild(ad);
+        }
+    });  
     
 }
 
